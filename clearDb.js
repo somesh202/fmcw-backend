@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
-const DATABASE = "mongodb+srv://fmcw23:cq1569%402022@cluster0.kobbzny.mongodb.net/?retryWrites=true&w=majority";
-const DB = DATABASE;
+
+const DB = process.env.DATABASE;
 
 
 const paModel = require("./models/pa_m");
