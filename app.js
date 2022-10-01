@@ -114,7 +114,7 @@ const leaderrout = require('./routers/leader.router.js');
 const userrout= require('./routers/user.router');         
 const cartrout= require('./routers/cart.router');         
 const paymentrout = require('./services/instamojoPayment');
-
+const mailrout = require('./routers/mail.router');
 // ROUTES
 app.get('/api/test', (req, res) => {
   res.json({message: 'API Running successfully'});
@@ -129,6 +129,8 @@ app.use('/api', leaderrout);
 app.use('/api', userrout);
 app.use('/api', cartrout);
 app.use('/api', paymentrout);
+app.use('/api', mailrout);
+
 app.all('*', (req, res) => {
   res.status(404).json({
     message: 'Given route does not exist'
