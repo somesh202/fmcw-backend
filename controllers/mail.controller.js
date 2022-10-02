@@ -18,7 +18,13 @@ dotenv.config({
 });
 
 exports.sendMail = async function(req, res)  {
-    let {text, amount} = req.body;
+    let {name,email, amount, cartItems} = req.body;
+	let wappLink;
+	for(let i=0;i<cartItems.length;i++){
+		if(cartItems[i].title == "InFocus"){
+			wappLink = "https://www.instagram.com/infocus_2020/";
+		}
+	}
   const transport = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -33,8 +39,8 @@ exports.sendMail = async function(req, res)  {
   // const email = await usermodel.findOne({email: req.body.email});
   await transport.sendMail({
     from: process.env.MAIL_FROM,
-    to: text,
-    subject: "TEST MAIL",
+    to: email,
+    subject: "FMCW'23",
     html: `<!doctype html>
 	<html>
 	  <head>
@@ -386,7 +392,7 @@ exports.sendMail = async function(req, res)  {
 					  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
 						<tr>
 						  <td>
-							<p>Hi there,</p>
+							<p>Hi ${name},</p>
 							<p>Sometimes you just want to send a simple HTML email with a simple design and clear call to action. This is it.</p>
 							<table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
 							  <tbody>
@@ -395,7 +401,7 @@ exports.sendMail = async function(req, res)  {
 									<table role="presentation" border="0" cellpadding="0" cellspacing="0">
 									  <tbody>
 										<tr>
-										  <td> <a href="http://htmlemail.io" target="_blank">Call To Action</a> </td>
+										  <td> <a href=${wappLink} target="_blank">Group Link</a> </td>
 										</tr>
 									  </tbody>
 									</table>
@@ -404,7 +410,7 @@ exports.sendMail = async function(req, res)  {
 							  </tbody>
 							</table>
 							<p>This is a really simple email template. Its sole purpose is to get the recipient to click the button with no distractions.</p>
-							<p>Amount: ${amount}.</p>
+							<p>Amount: ₹ ${amount}.</p>
 						  </td>
 						</tr>
 					  </table>
